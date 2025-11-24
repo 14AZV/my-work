@@ -15,13 +15,12 @@
     }
 
     body {
-  font-family: 'Roboto', sans-serif;
-  background: url("statphoto.png") no-repeat center center fixed;
-  background-size: cover;
-  color: #e0e0e0;
-  overflow-x: hidden;
-}
-
+      font-family: 'Roboto', sans-serif;
+      /* Убедись, что картинка statphoto.png лежит в той же папке, что и этот файл */
+      background: url("statphoto.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #e0e0e0;
+      overflow-x: hidden;
     }
 
     header {
@@ -179,11 +178,13 @@
       box-shadow: 0 0 25px rgba(0,0,255,0.4);
     }
 
+    /* --- ИЗМЕНЕННЫЙ БЛОК ЦВЕТА --- */
     .project-card h3 {
-      color: #00FFFF;
+      color: #0000ff; /* Здесь я заменил #00FFFF на #0000ff */
       margin-bottom: 10px;
       font-family: 'Orbitron', sans-serif;
     }
+    /* ----------------------------- */
 
     .project-card p {
       color: #0000СС;
@@ -245,40 +246,47 @@
 
   <section id="hero">
     <h1>Привет, я Алан</h1>
-    <p>Создаю современные спроекты и все что порадует вам глаз и вашу душу.</p>
+    <p>Создаю современные проекты и всё, что радует глаз и душу.</p>
     <a href="#projects"><button class="btn">Мои работы</button></a>
   </section>
 
   <section id="about" data-animate>
     <h2>Обо мне</h2>
-    <p>Я дизайнер, монтажер, програмист, и просто добрый человек :) Я люблю создавать и проектировать вещи, от фотографий которые будут приятны душе до сайтов и программ, которые будут полезны всем. </p>
+    <p>Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.</p>
   </section>
 
   <section id="projects" data-animate>
     <h2>Портфолио</h2>
     <div class="projects-grid">
+      
       <div class="project-card">
         <h3>Видео-проекты</h3>
-        <p>Видео, смонтированные мною либо для себя либо для друзей.</p>
-        <a href="#">Открыть</a>
+        <p>Видео, смонтированные мною либо для себя, либо для друзей.</p>
+        
+        <a href="[ВСТАВЬ_ССЫЛКУ_НА_ВИДЕО_СЮДА]" target="_blank">Открыть</a>
       </div>
+
       <div class="project-card">
         <h3>Работы в фотошоп</h3>
         <p>Если вас интересует что я редактировал и обрабатывал в фотошопе, вам сюда.</p>
-        <a href="#">Открыть</a>
+        
+        <a href="[ВСТАВЬ_ССЫЛКУ_НА_ФОТО_СЮДА]" target="_blank">Открыть</a>
       </div>
+
       <div class="project-card">
-        <h3>Проекты, которые я спрограмировал</h3>
+        <h3>Проекты, которые я спрограммировал</h3>
         <p>Нажав открыть на этой карточке, вы обновите страницу сайта. Я пока ничего больше этого сайта не сделал для портфолио</p>
+        
         <a href="#">Открыть</a>
       </div>
+
     </div>
   </section>
 
   <section id="contacts" data-animate>
     <h2>Контакты</h2>
-    <p style="text-align:center;">Email: <a href="mailto:alan@example.com" class="neon">alan_zasseev@mail.ru</a></p>
-    <p style="text-align:center;">Telegram: <a href="https://t.me/username" class="neon">@vellonchel</a></p>
+    <p style="text-align:center;">Email: <a href="mailto:alan_zasseev@mail.ru" class="neon">alan_zasseev@mail.ru</a></p>
+    <p style="text-align:center;">Telegram: <a href="https://t.me/vellonchel" class="neon">@vellonchel</a></p>
   </section>
 
   <footer>
@@ -298,7 +306,6 @@
   </script>
 
 </body>
-
 </html>
 
 
