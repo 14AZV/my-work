@@ -380,57 +380,69 @@
   </footer>
 
   <script>
-    /* --- СКРИПТ АНИМАЦИИ ЗАГРУЗКИ (ДОБАВЛЕНО) --- */
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('system-loader');
-      const fill = document.getElementById('progress-fill');
-      const text = document.getElementById('term-text');
-      const verDisplay = document.getElementById('version-display');
+    /* --- СКРИПТ АНИМАЦИИ ЗАГРУЗКИ (ИСПРАВЛЕННАЯ ВЕРСИЯ) --- */
+  window.addEventListener('load', function() {
+    const loader = document.getElementById('system-loader');
+    const fill = document.getElementById('progress-fill');
+    const text = document.getElementById('term-text');
+    const verDisplay = document.getElementById('version-display');
 
-      // 1. НАПИШИ СЮДА НУЖНУЮ ВЕРСИЮ (МЕНЯЙ ЭТУ СТРОКУ)
-      verDisplay.innerText = "SYSTEM UPDATE: 0.32; 
+    // 1. НАПИШИ СЮДА НУЖНУЮ ВЕРСИЮ (МЕНЯЙ ЭТУ СТРОКУ)
+    verDisplay.innerText = "SYSTEM UPDATE: v.14.0.1"; 
 
-      const messages = [
-        "Connecting...",
-        "Loading assets...",
-        "Decrypting data...",
-        "Starting UI...",
-        "Welcome, Alan."
-      ];
+    const messages = [
+      "Connecting...",
+      "Loading assets...",
+      "Decrypting data...",
+      "Starting UI...",
+      "Welcome, Alan."
+    ];
 
-      let progress = 0;
-      // Скорость загрузки (чем меньше число, тем быстрее)
-      const speed = 30; 
+    let progress = 0;
+    // Скорость загрузки (чем меньше число, тем быстрее)
+    const speed = 30; 
 
-      const interval = setInterval(() => {
-        progress += 1;
-        fill.style.width = progress + '%';
+    const interval = setInterval(() => {
+      progress += 1;
+      
+      // Убедимся, что прогресс не превышает 100
+      if (progress <= 100) {
+         fill.style.width = progress + '%';
+      }
 
-        // Меняем текст
-        if (progress < 20) text.innerText = messages[0];
-        else if (progress < 40) text.innerText = messages[1];
-        else if (progress < 60) text.innerText = messages[2];
-        else if (progress < 80) text.innerText = messages[3];
-        else text.innerText = messages[4];
+      // Меняем текст
+      if (progress < 20) text.innerText = messages[0];
+      else if (progress < 40) text.innerText = messages[1];
+      else if (progress < 60) text.innerText = messages[2];
+      else if (progress < 80) text.innerText = messages[3];
+      else text.innerText = messages[4];
 
-        // Когда дошло до 100%
-        if (progress >= 100) {
-          clearInterval(interval);
-          loader.classList.add('loader-hidden'); // Исчезновение
-        }
-      }, speed);
+      // КОГДА ДОШЛО ДО 100% (УСЛОВИЕ ЗАВЕРШЕНИЯ)
+      if (progress >= 100) {
+        clearInterval(interval);
+        
+        // ГАРАНТИРУЕМ 100% ВИЗУАЛЬНО
+        fill.style.width = '100%'; 
+        text.innerText = messages[4];
+
+        // Добавляем таймаут (300 мс) перед исчезновением для плавного перехода
+        setTimeout(() => {
+          loader.classList.add('loader-hidden'); 
+        }, 300);
+      }
+    }, speed);
+  });
+  /* --- КОНЕЦ СКРИПТА ЗАГРУЗКИ --- */
+
+  // Анимация появления при скролле
+  const elements = document.querySelectorAll('[data-animate]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-    /* --- КОНЕЦ СКРИПТА АНИМАЦИИ ЗАГРУЗКИ --- */
-    
-    // Анимация появления при скролле
-    const elements = document.querySelectorAll('[data-animate]');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
+  }, { threshold: 0.2 });
 
-    elements.forEach(el => observer.observe(el));
+  elements.forEach(el => observer.observe(el));
   </script>
 
 </body>
