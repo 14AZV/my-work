@@ -19,12 +19,16 @@
 
    body {
   font-family: 'Roboto', sans-serif;
-  /* Градиент сверху вниз: от черного к очень темному синему */
-  background: linear-gradient(to bottom, #000000, #0a0e27);
-  color: #e0e0e0;
+  
+  /* --- НОВЫЙ ФОН С ИЗОБРАЖЕНИЕМ --- */
+  background: url('background_photo.jpg') no-repeat center center fixed;
+  background-size: cover; /* Растягивает изображение, чтобы оно покрывало весь экран */
+  /* ---------------------------------- */
+  
+  color: #e0e0e0; /* Цвет текста остается светлым */
   overflow-x: hidden;
-  min-height: 100vh; /* Важно: растягивает фон на весь экран */
-    }
+  min-height: 100vh;
+}
     
     /* --- СТИЛИ ДЛЯ АНИМАЦИИ ЗАГРУЗКИ (ДОБАВЛЕНО) --- */
     .loader-overlay {
@@ -391,14 +395,14 @@
     const verDisplay = document.getElementById('version-display');
 
     // 1. НАПИШИ СЮДА НУЖНУЮ ВЕРСИЮ (МЕНЯЙ ЭТУ СТРОКУ)
-    verDisplay.innerText = "SYSTEM UPDATE: 0.36"; 
+    verDisplay.innerText = "SYSTEM UPDATE: 0.40"; 
 
     const messages = [
       "Connecting...",
       "Loading assets...",
       "Decrypting data...",
       "Starting UI...",
-      "Welcome, quest."
+      "Welcome."
     ];
 
     let progress = 0;
