@@ -296,6 +296,57 @@
       gap: 30px;
     }
 
+    /* --- СТИЛИ ДЛЯ БЛОГА (ДОБАВЛЕНО) --- */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    .blog-card {
+      background: rgba(20, 20, 20, 0.85); 
+      border: 1px solid rgba(31,81,255, 0.3);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      transition: 0.4s;
+      box-shadow: 0 0 10px rgba(31,81,255,0.1);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(31,81,255,0.4);
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: transform 0.3s;
+      opacity: 0.9;
+      box-shadow: 0 0 5px #1F51FF;
+    }
+
+    .blog-card:hover img {
+      transform: scale(1.02);
+      opacity: 1;
+      box-shadow: 0 0 15px #1F51FF;
+    }
+
+    .blog-card p {
+        font-family: 'Orbitron', sans-serif;
+        color: #7AA9FF; /* Светлый сапфир */
+        margin-top: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .blog-card a {
+        text-decoration: none;
+    }
+    /* ------------------------------------- */
+
     .project-card {
       /* ИЗМЕНЕНО: 85% opacity */
       background: rgba(20, 20, 20, 0.85); 
@@ -360,6 +411,89 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* --- МЕНЮ "ВЕТКА" (SIDEBAR) --- */
+    #branch-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1050;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 12px;
+        line-height: 1.2;
+        background: #1F51FF; /* САПФИР */
+        color: #000;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 20px #1F51FF;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    #branch-btn:hover {
+        box-shadow: 0 0 40px #1F51FF;
+        transform: scale(1.1);
+    }
+
+    #branch-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        border-left: 2px solid #1F51FF;
+        z-index: 1040;
+        padding: 20px;
+        padding-top: 80px;
+        box-shadow: -10px 0 30px rgba(31,81,255,0.5);
+        transform: translateX(100%);
+        transition: transform 0.4s ease-out;
+    }
+
+    #branch-menu.open {
+        transform: translateX(0);
+    }
+    
+    #branch-menu h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: #7AA9FF;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(31,81,255,0.3);
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .branch-list {
+        list-style: none;
+    }
+
+    .branch-list li a {
+        display: block;
+        padding: 15px 10px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: #ccc;
+        border-left: 3px solid transparent;
+        transition: 0.2s;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+    
+    .branch-list li a:hover {
+        color: #1F51FF;
+        border-left: 3px solid #1F51FF;
+        background: rgba(31,81,255,0.05);
+        padding-left: 20px;
+        text-shadow: 0 0 5px rgba(31,81,255,0.5);
+    }
+    /* ------------------------------------- */
   </style>
 </head>
 <body>
@@ -387,7 +521,7 @@
       <ul class="menu">
         <li><a href="#hero" data-i18n="nav_home">Главная</a></li>
         <li><a href="#about" data-i18n="nav_about">Обо мне</a></li>
-        <li><a href="#blog" data-i18n="nav_blog">Блог</a></li> 
+        <li><a href="#blog" data-i18n="nav_blog">Блог</a></li> <!-- ДОБАВЛЕНО -->
         <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
         <li><a href="#contacts" data-i18n="nav_contacts">Контакты</a></li>
       </ul>
@@ -409,12 +543,36 @@
     </div>
   </section>
   
+  <!-- НОВЫЙ РАЗДЕЛ БЛОГ -->
   <section id="blog" data-animate>
     <h2 data-i18n="blog_title">Мой Блог</h2>
-    <div class="section-content-wrapper">
-        <p data-i18n="blog_text">Здесь скоро появятся статьи о дизайне, монтаже, последних трендах в программировании и другие интересные мысли.</p>
+    
+    <div class="blog-grid">
+      <!-- Статья 1 -->
+      <div class="blog-card">
+        <a href="[ССЫЛКА_1]" target="_blank" data-i18n="blog_link1">
+            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=DESIGN" alt="Статья 1">
+            <p data-i18n="blog_post1_title">5 Секретов Дизайна</p>
+        </a>
+      </div>
+      <!-- Статья 2 -->
+      <div class="blog-card">
+        <a href="[ССЫЛКА_2]" target="_blank" data-i18n="blog_link2">
+            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=CODE" alt="Статья 2">
+            <p data-i18n="blog_post2_title">Кодинг 2025</p>
+        </a>
+      </div>
+      <!-- Статья 3 -->
+      <div class="blog-card">
+        <a href="[ССЫЛКА_3]" target="_blank" data-i18n="blog_link3">
+            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=EDITING" alt="Статья 3">
+            <p data-i18n="blog_post3_title">Монтаж Видео</p>
+        </a>
+      </div>
     </div>
   </section>
+  <!-- КОНЕЦ БЛОГА -->
+
   <section id="projects" data-animate>
     <h2 data-i18n="projects_title">Портфолио</h2>
     <div class="projects-grid">
@@ -453,6 +611,18 @@
     <span data-i18n="footer_text">© 2025 Портфолио меня заканчивается здесь, а начинается в начале этого сайта.</span>
   </footer>
 
+  <!-- КНОПКА И МЕНЮ ВЕТКИ -->
+  <button id="branch-btn" data-i18n="branch_button_closed">ВЕТКА</button>
+  <div id="branch-menu">
+      <h3 data-i18n="branch_title">МЕНЮ ВЕТКИ</h3>
+      <ul class="branch-list">
+          <li><a href="#" data-i18n="branch_link1">Архив</a></li>
+          <li><a href="#" data-i18n="branch_link2">Файлы (Beta)</a></li>
+          <li><a href="#" data-i18n="branch_link3">Настройки</a></li>
+          <li><a href="#" data-i18n="branch_link4">Логи</a></li>
+      </ul>
+  </div>
+
   <script>
     /* --- СЛОВАРЬ ПЕРЕВОДОВ --- */
     const translations = {
@@ -467,8 +637,25 @@
         btn_works: 'Мои работы',
         about_title: 'Обо мне',
         about_text: 'Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.',
+        
+        // БЛОГ
         blog_title: 'Мой Блог', 
-        blog_text: 'Здесь скоро появятся статьи о дизайне, монтаже, последних трендах в программировании и другие интересные мысли.',
+        blog_post1_title: '5 Секретов Дизайна',
+        blog_post2_title: 'Кодинг 2025',
+        blog_post3_title: 'Монтаж Видео',
+        blog_link1: '[ССЫЛКА_1]',
+        blog_link2: '[ССЫЛКА_2]',
+        blog_link3: '[ССЫЛКА_3]',
+
+        // ВЕТКА
+        branch_button_closed: 'ВЕТКА',
+        branch_button_open: 'ЗАКРЫТЬ',
+        branch_title: 'МЕНЮ ВЕТКИ',
+        branch_link1: 'Архив',
+        branch_link2: 'Файлы (Beta)',
+        branch_link3: 'Настройки',
+        branch_link4: 'Логи',
+
         projects_title: 'Портфолио',
         proj_video_title: 'Видео-проекты',
         proj_video_text: 'Видео, смонтированные мною либо для себя, либо для друзей.',
@@ -492,8 +679,25 @@
         btn_works: 'My works',
         about_title: 'About me',
         about_text: 'I am a designer, video editor, programmer, and just a good person :) I love creating and designing things: from photos that will be pleasant to the soul, to websites and programs that will be useful to everyone.',
+        
+        // BLOG
         blog_title: 'My Blog', 
-        blog_text: 'Articles on design, editing, latest programming trends, and other interesting thoughts will appear here soon.',
+        blog_post1_title: '5 Design Secrets',
+        blog_post2_title: 'Coding 2025',
+        blog_post3_title: 'Video Editing',
+        blog_link1: '[LINK_1]',
+        blog_link2: '[LINK_2]',
+        blog_link3: '[LINK_3]',
+
+        // BRANCH
+        branch_button_closed: 'BRANCH',
+        branch_button_open: 'CLOSE',
+        branch_title: 'BRANCH MENU',
+        branch_link1: 'Archive',
+        branch_link2: 'Files (Beta)',
+        branch_link3: 'Settings',
+        branch_link4: 'Logs',
+
         projects_title: 'Portfolio',
         proj_video_title: 'Video projects',
         proj_video_text: 'Videos edited by me either for myself or for friends.',
@@ -508,17 +712,34 @@
       }
     };
 
+    let currentLang = 'ru';
+
     function setLanguage(lang) {
+      currentLang = lang;
       document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-          element.textContent = translations[lang][key];
+          // Если это ссылка блога, меняем href
+          if(element.tagName === 'A' && key.startsWith('blog_link')) {
+             element.href = translations[lang][key];
+          } else {
+             element.textContent = translations[lang][key];
+          }
         }
       });
       
       document.getElementById('lang-ru').classList.remove('active');
       document.getElementById('lang-en').classList.remove('active');
       document.getElementById(`lang-${lang}`).classList.add('active');
+
+      // Обновляем текст кнопки Ветка
+      const menu = document.getElementById('branch-menu');
+      const btn = document.getElementById('branch-btn');
+      if (menu.classList.contains('open')) {
+          btn.textContent = translations[lang].branch_button_open;
+      } else {
+          btn.textContent = translations[lang].branch_button_closed;
+      }
     }
 
     document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
@@ -574,6 +795,17 @@
       }, speed);
     });
     /* --- КОНЕЦ СКРИПТА ЗАГРУЗКИ --- */
+
+    /* --- СКРИПТ МЕНЮ ВЕТКИ --- */
+    document.getElementById('branch-btn').addEventListener('click', function() {
+        const menu = document.getElementById('branch-menu');
+        menu.classList.toggle('open');
+        if (menu.classList.contains('open')) {
+            this.innerText = translations[currentLang].branch_button_open;
+        } else {
+            this.innerText = translations[currentLang].branch_button_closed;
+        }
+    });
 
     // Анимация появления при скролле
     const elements = document.querySelectorAll('[data-animate]');
