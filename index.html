@@ -57,8 +57,8 @@
 
     .neon-text {
       font-family: 'Orbitron', sans-serif; 
-      color: #0000FF;
-      text-shadow: 0 0 20px #0000FF;
+      color: #1F51FF; /* САПФИР */
+      text-shadow: 0 0 20px #1F51FF; /* САПФИР */
       margin-bottom: 15px;
       letter-spacing: 2px;
     }
@@ -66,17 +66,17 @@
     .version-text {
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
-      color: #0000FF;
+      color: #1F51FF; /* САПФИР */
       margin-bottom: 20px;
       padding: 5px 10px;
-      border: 1px solid #0000FF;
+      border: 1px solid #1F51FF; /* САПФИР */
       display: inline-block;
-      box-shadow: 0 0 5px rgba(0,0,255,0.3);
+      box-shadow: 0 0 5px rgba(31,81,255,0.3); /* САПФИР RGBA */
     }
 
     .terminal-text {
       font-family: monospace;
-      color: #0000FF;
+      color: #1F51FF; /* САПФИР */
       margin-bottom: 5px;
       font-size: 12px;
       text-align: left;
@@ -87,15 +87,15 @@
       width: 100%;
       height: 4px;
       background: #111;
-      border: 1px solid #0000FF;
+      border: 1px solid #1F51FF; /* САПФИР */
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: #0000FF;
-      box-shadow: 0 0 10px #0000FF;
+      background: #1F51FF; /* САПФИР */
+      box-shadow: 0 0 10px #1F51FF; /* САПФИР */
     }
     /* --- КОНЕЦ СТИЛЕЙ АНИМАЦИИ ЗАГРУЗКИ --- */
 
@@ -104,7 +104,7 @@
       top: 0;
       width: 100%;
       background: rgba(10, 10, 10, 0.8);
-      border-bottom: 1px solid rgba(0,0,255, 0.2);
+      border-bottom: 1px solid rgba(31,81,255, 0.2); /* САПФИР RGBA */
       backdrop-filter: blur(8px);
       z-index: 1000;
     }
@@ -118,7 +118,7 @@
       align-items: center;
     }
 
-    /* --- СТИЛИ ДЛЯ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА (ДОБАВЛЕНО) --- */
+    /* --- СТИЛИ ДЛЯ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА --- */
     .lang-switcher {
       display: flex;
       gap: 5px;
@@ -130,8 +130,8 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
       background: transparent;
-      border: 1px solid #0000FF;
-      color: #0000FF;
+      border: 1px solid #1F51FF; /* САПФИР */
+      color: #1F51FF; /* САПФИР */
       cursor: pointer;
       transition: 0.2s;
       opacity: 0.6;
@@ -139,12 +139,12 @@
 
     .lang-btn:hover {
       opacity: 1;
-      box-shadow: 0 0 10px rgba(0,0,255,0.5);
+      box-shadow: 0 0 10px rgba(31,81,255,0.5); /* САПФИР RGBA */
     }
     
     .lang-btn.active {
       opacity: 1;
-      background: #0000FF;
+      background: #1F51FF; /* САПФИР */
       color: #000;
       font-weight: bold;
     }
@@ -153,8 +153,8 @@
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 26px;
-      color: #0000FF;
-      text-shadow: 0 0 10px #0000FF;
+      color: #1F51FF; /* САПФИР */
+      text-shadow: 0 0 10px #1F51FF; /* САПФИР */
       letter-spacing: 2px;
     }
 
@@ -162,8 +162,8 @@
       list-style: none;
       display: flex;
       gap: 25px;
-      flex-grow: 1; /* Чтобы меню заняло доступное место */
-      justify-content: flex-end; /* Сдвигает меню вправо */
+      flex-grow: 1; 
+      justify-content: flex-end; 
       margin-right: 30px; 
     }
 
@@ -182,13 +182,13 @@
       bottom: -5px;
       width: 0;
       height: 2px;
-      background: #0000FF;
-      box-shadow: 0 0 10px #0000FF;
+      background: #1F51FF; /* САПФИР */
+      box-shadow: 0 0 10px #1F51FF; /* САПФИР */
       transition: 0.3s;
     }
 
     .menu a:hover {
-      color: #0000FF;
+      color: #1F51FF; /* САПФИР */
     }
 
     .menu a:hover::after {
@@ -205,22 +205,22 @@
       padding: 0 20px;
     }
 
-    /* --- СТИЛИ ДЛЯ КОНТРАСТНОЙ ПОДЛОЖКИ (ДОБАВЛЕНО) --- */
+    /* --- СТИЛИ ДЛЯ КОНТРАСТНОЙ ПОДЛОЖКИ --- */
     .hero-content-wrapper {
-        background: rgba(0, 0, 0, 0.4); /* Темная подложка */
+        background: rgba(0, 0, 0, 0.4); 
         padding: 50px;
         border-radius: 15px;
-        /* Внутреннее неоновое свечение */
-        box-shadow: 0 0 15px rgba(0, 0, 255, 0.3) inset, 0 0 30px rgba(0, 0, 255, 0.1); 
+        /* Внутреннее неоновое свечение (САПФИР RGBA) */
+        box-shadow: 0 0 15px rgba(31, 81, 255, 0.3) inset, 0 0 30px rgba(31, 81, 255, 0.1); 
         max-width: 800px;
     }
 
     .section-content-wrapper {
-        background: rgba(0, 0, 0, 0.4); /* Темная подложка */
+        background: rgba(0, 0, 0, 0.4); 
         padding: 40px;
         border-radius: 10px;
-        /* Внутреннее неоновое свечение */
-        box-shadow: 0 0 10px rgba(0, 0, 255, 0.3) inset, 0 0 20px rgba(0, 0, 255, 0.1); 
+        /* Внутреннее неоновое свечение (САПФИР RGBA) */
+        box-shadow: 0 0 10px rgba(31, 81, 255, 0.3) inset, 0 0 20px rgba(31, 81, 255, 0.1); 
         max-width: 900px;
         margin: 0 auto;
         text-align: center;
@@ -231,8 +231,8 @@
     #hero h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 3rem;
-      color: #0000FF;
-      text-shadow: 0 0 20px #1E90FF;
+      color: #1F51FF; /* САПФИР */
+      text-shadow: 0 0 20px #7AA9FF; /* СВЕТЛО-САПФИР */
       animation: glow 3s infinite alternate;
     }
 
@@ -244,8 +244,8 @@
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 10px #0000FF; }
-      to { text-shadow: 0 0 25px #0000FF, 0 0 50px #0000FF; }
+      from { text-shadow: 0 0 10px #1F51FF; } /* САПФИР */
+      to { text-shadow: 0 0 25px #1F51FF, 0 0 50px #1F51FF; } /* САПФИР */
     }
 
     .btn {
@@ -253,19 +253,19 @@
       padding: 12px 30px;
       font-family: 'Orbitron', sans-serif;
       background: transparent;
-      border: 2px solid #0000FF;
-      color: #0000FF;
+      border: 2px solid #1F51FF; /* САПФИР */
+      color: #1F51FF; /* САПФИР */
       text-transform: uppercase;
       border-radius: 10px;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 0 15px rgba(0,0,255,0.2);
+      box-shadow: 0 0 15px rgba(31,81,255,0.2); /* САПФИР RGBA */
     }
 
     .btn:hover {
-      background: #0000FF;
+      background: #1F51FF; /* САПФИР */
       color: #000;
-      box-shadow: 0 0 30px #0000FF;
+      box-shadow: 0 0 30px #1F51FF; /* САПФИР */
     }
 
     section {
@@ -278,9 +278,9 @@
       font-family: 'Orbitron', sans-serif;
       text-align: center;
       font-size: 2rem;
-      color: #0000FF;
+      color: #1F51FF; /* САПФИР */
       margin-bottom: 40px;
-      text-shadow: 0 0 15px #0000FF;
+      text-shadow: 0 0 15px #1F51FF; /* САПФИР */
     }
 
     #about p {
@@ -299,21 +299,21 @@
     .project-card {
       /* ИЗМЕНЕНО: 85% opacity */
       background: rgba(20, 20, 20, 0.85); 
-      border: 1px solid rgba(0,0,255, 0.3);
+      border: 1px solid rgba(31,81,255, 0.3); /* САПФИР RGBA */
       border-radius: 15px;
       padding: 25px;
       text-align: center;
       transition: 0.4s;
-      box-shadow: 0 0 10px rgba(0,0,255,0.1);
+      box-shadow: 0 0 10px rgba(31,81,255,0.1); /* САПФИР RGBA */
     }
 
     .project-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(0,0,255,0.4);
+      box-shadow: 0 0 25px rgba(31,81,255,0.4); /* САПФИР RGBA */
     }
 
     .project-card h3 {
-      color: #0000ff; 
+      color: #1F51FF; /* САПФИР */
       margin-bottom: 10px;
       font-family: 'Orbitron', sans-serif;
     }
@@ -325,28 +325,28 @@
     }
 
     .project-card a {
-      color: #0000FF;
+      color: #1F51FF; /* САПФИР */
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
     }
 
     .project-card a:hover {
-      text-shadow: 0 0 10px #0437F2;
+      text-shadow: 0 0 10px #7AA9FF; /* СВЕТЛО-САПФИР */
     }
 
     footer {
       text-align: center;
       padding: 40px;
-      border-top: 1px solid rgba(0,0,255,0.2);
+      border-top: 1px solid rgba(31,81,255,0.2); /* САПФИР RGBA */
       color: #555;
       font-size: 14px;
     }
 
     /* Neon glow effect */
     .neon {
-      color: #0096FF;
-      text-shadow: 0 0 10px #1F51FF, 0 0 20px #1F51FF;
+      color: #7AA9FF; /* СВЕТЛО-САПФИР */
+      text-shadow: 0 0 10px #7AA9FF, 0 0 20px #7AA9FF; /* СВЕТЛО-САПФИР */
     }
 
     /* Scroll reveal animation */
@@ -387,7 +387,8 @@
       <ul class="menu">
         <li><a href="#hero" data-i18n="nav_home">Главная</a></li>
         <li><a href="#about" data-i18n="nav_about">Обо мне</a></li>
-        <li><a href="#blog" data-i18n="nav_blog">Блог</a></li> <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
+        <li><a href="#blog" data-i18n="nav_blog">Блог</a></li> 
+        <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
         <li><a href="#contacts" data-i18n="nav_contacts">Контакты</a></li>
       </ul>
     </nav>
@@ -453,7 +454,7 @@
   </footer>
 
   <script>
-    /* --- СЛОВАРЬ ПЕРЕВОДОВ (ДОБАВЛЕНО) --- */
+    /* --- СЛОВАРЬ ПЕРЕВОДОВ --- */
     const translations = {
       ru: {
         nav_home: 'Главная',
@@ -515,17 +516,14 @@
         }
       });
       
-      // Обновление активного класса кнопок
       document.getElementById('lang-ru').classList.remove('active');
       document.getElementById('lang-en').classList.remove('active');
       document.getElementById(`lang-${lang}`).classList.add('active');
     }
 
-    // Присвоение обработчиков нажатий
     document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
     document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
     
-    // Устанавливаем русский по умолчанию при загрузке
     setLanguage('ru'); 
     /* --- КОНЕЦ СЛОВАРЯ ПЕРЕВОДОВ --- */
 
@@ -537,7 +535,7 @@
       const verDisplay = document.getElementById('version-display');
 
       // 1. ВЕРСИЯ САЙТА (Используется твоя версия)
-      verDisplay.innerText = "SYSTEM UPDATE: 0.49"; 
+      verDisplay.innerText = "SYSTEM UPDATE: 0.40"; 
 
       const messages = [
         "Connecting...",
@@ -590,4 +588,3 @@
 
 </body>
 </html>
-```
