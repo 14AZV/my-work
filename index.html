@@ -1,822 +1,314 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azv4Work</title>
-  
-  <link rel="icon" href="icon.png" type="image/png"> 
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azv4Work — портфолио Алана</title>
+<meta name="description" content="Портфолио Алана: дизайн, видеомонтаж и программирование.">
+<meta property="og:title" content="Azv4Work — портфолио Алана">
+<meta property="og:description" content="Дизайн, видеомонтаж и программирование.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="icon.png" type="image/png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
+:root{--sap:#1F51FF;--sap-l:#7AA9FF;--text:#e0e0e0;--muted:#b4b4b4;--card:rgba(20,20,20,.85);--glass:rgba(0,0,0,.45);--line:rgba(31,81,255,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:'Roboto',sans-serif;background:#05070f url('background2.png') no-repeat center/cover fixed;color:var(--text);overflow-x:hidden;min-height:100vh}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--sap-l);outline-offset:3px}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+/* Загрузчик */
+.loader-overlay{position:fixed;inset:0;background:#000;z-index:9999;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:opacity .8s,visibility .8s}
+.loader-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-content{width:300px;text-align:center}
+.neon-text{font-family:'Orbitron',sans-serif;color:var(--sap);text-shadow:0 0 20px var(--sap);margin-bottom:15px;letter-spacing:2px}
+.version-text{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--sap);margin-bottom:20px;padding:5px 10px;border:1px solid var(--sap);display:inline-block}
+.terminal-text{font-family:monospace;color:var(--sap);margin-bottom:5px;font-size:12px;text-align:left;min-height:18px}
+.skip-hint{margin-top:14px;font-size:11px;color:#556}
+.progress-bar{height:4px;background:#111;border:1px solid var(--sap);overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--sap);box-shadow:0 0 10px var(--sap)}
 
-   body {
-      font-family: 'Roboto', sans-serif;
-      
-      /* --- ФОН С ИЗОБРАЖЕНИЕМ --- */
-      background: url('background2.png') no-repeat center center fixed;
-      background-size: cover;
-      /* -------------------------- */
-      
-      color: #e0e0e0; 
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-    
-    /* --- СТИЛИ ДЛЯ АНИМАЦИИ ЗАГРУЗКИ --- */
-    .loader-overlay {
-      display: flex; 
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000; 
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 0.8s ease-out, visibility 0.8s;
-    }
+/* Шапка */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sap);box-shadow:0 0 10px var(--sap);z-index:1100}
+header{position:fixed;top:0;width:100%;background:rgba(10,10,10,.8);border-bottom:1px solid rgba(31,81,255,.2);backdrop-filter:blur(8px);z-index:1000}
+nav{max-width:1100px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-family:'Orbitron',sans-serif;font-size:26px;color:var(--sap);text-shadow:0 0 10px var(--sap);letter-spacing:2px}
+.lang-switcher{display:flex;gap:5px}
+.lang-btn{padding:5px 10px;font-family:'Orbitron',sans-serif;font-size:13px;background:transparent;border:1px solid var(--sap);color:var(--sap);cursor:pointer;opacity:.6;transition:.2s}
+.lang-btn:hover{opacity:1;box-shadow:0 0 10px rgba(31,81,255,.5)}
+.lang-btn.active{opacity:1;background:var(--sap);color:#000;font-weight:700}
+.menu{list-style:none;display:flex;gap:24px;margin-left:auto}
+.menu a{text-decoration:none;color:#ccc;font-weight:500;position:relative;transition:.3s}
+.menu a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--sap);box-shadow:0 0 10px var(--sap);transition:.3s}
+.menu a:hover,.menu a.active{color:var(--sap-l)}
+.menu a:hover::after,.menu a.active::after{width:100%}
+#burger{display:none;margin-left:auto;background:none;border:1px solid var(--sap);color:var(--sap);font-size:22px;width:42px;height:38px;cursor:pointer;border-radius:6px}
 
-    .loader-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+/* Блоки */
+#hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:0 20px}
+.hero-content-wrapper,.section-content-wrapper{background:var(--glass);box-shadow:0 0 15px rgba(31,81,255,.3) inset,0 0 30px rgba(31,81,255,.1);backdrop-filter:blur(3px)}
+.hero-content-wrapper{padding:50px;border-radius:15px;max-width:800px}
+.section-content-wrapper{padding:40px;border-radius:10px;max-width:900px;margin:0 auto;text-align:center}
+#hero h1{font-family:'Orbitron',sans-serif;font-size:clamp(1.8rem,6vw,3rem);color:#fff;animation:glow 3s infinite alternate}
+#hero p{margin:20px auto 0;max-width:600px;line-height:1.6;color:#ccc}
+@keyframes glow{from{text-shadow:0 0 10px var(--sap)}to{text-shadow:0 0 25px var(--sap),0 0 50px var(--sap)}}
+.btn{display:inline-block;margin-top:30px;padding:12px 30px;font-family:'Orbitron',sans-serif;font-size:14px;background:transparent;border:2px solid var(--sap);color:var(--sap);text-transform:uppercase;text-decoration:none;border-radius:10px;cursor:pointer;transition:.3s;box-shadow:0 0 15px rgba(31,81,255,.2)}
+.btn:hover{background:var(--sap);color:#000;box-shadow:0 0 30px var(--sap)}
+section{padding:90px 20px;max-width:1100px;margin:auto}
+section h2{font-family:'Orbitron',sans-serif;text-align:center;font-size:2rem;color:var(--sap);margin-bottom:40px;text-shadow:0 0 15px var(--sap)}
+#about p{max-width:700px;margin:auto;color:#ccc;line-height:1.8}
 
-    .loader-content {
-      width: 300px;
-      text-align: center;
-    }
+/* Навыки */
+.skills{display:grid;gap:18px;max-width:700px;margin:30px auto 0;text-align:left}
+.skill-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.skill-bar{height:6px;border-radius:3px;background:#111;border:1px solid var(--line);overflow:hidden}
+.skill-fill{height:100%;width:0;background:var(--sap);box-shadow:0 0 10px var(--sap);transition:width 1.2s ease}
 
-    .neon-text {
-      font-family: 'Orbitron', sans-serif; 
-      color: #1F51FF; /* САПФИР */
-      text-shadow: 0 0 20px #1F51FF; /* САПФИР */
-      margin-bottom: 15px;
-      letter-spacing: 2px;
-    }
+/* Карточки */
+.blog-grid,.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+.blog-card,.project-card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:20px;text-align:center;transition:.4s;box-shadow:0 0 10px rgba(31,81,255,.1)}
+.blog-card:hover,.project-card:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(31,81,255,.4)}
+.blog-card a{text-decoration:none;display:block}
+.blog-card img{width:100%;height:auto;border-radius:10px;opacity:.9;box-shadow:0 0 5px var(--sap);transition:.3s}
+.blog-card:hover img{opacity:1;box-shadow:0 0 15px var(--sap)}
+.blog-card p{font-family:'Orbitron',sans-serif;color:var(--sap-l);margin-top:12px;font-size:1.05rem}
+.project-card h3{color:var(--sap-l);margin-bottom:10px;font-family:'Orbitron',sans-serif;font-size:1.1rem}
+.project-card p{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:15px}
+.project-card a{color:var(--sap-l);text-decoration:none;font-weight:700}
+.project-card a:hover{text-shadow:0 0 10px var(--sap-l)}
+.soon{color:#777;font-style:italic;font-size:14px}
 
-    .version-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      color: #1F51FF; /* САПФИР */
-      margin-bottom: 20px;
-      padding: 5px 10px;
-      border: 1px solid #1F51FF; /* САПФИР */
-      display: inline-block;
-      box-shadow: 0 0 5px rgba(31,81,255,0.3); /* САПФИР RGBA */
-    }
+/* Контакты */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.contact-links{line-height:2.2}
+.neon{color:var(--sap-l);text-shadow:0 0 10px var(--sap-l);text-decoration:none}
+.neon:hover{text-decoration:underline}
+form{display:grid;gap:12px}
+input,textarea{width:100%;padding:12px;background:rgba(0,0,0,.6);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}
+textarea{min-height:110px;resize:vertical}
+form .btn{margin-top:0}
+footer{text-align:center;padding:40px 20px;border-top:1px solid rgba(31,81,255,.2);color:#888;font-size:14px;background:rgba(0,0,0,.5)}
 
-    .terminal-text {
-      font-family: monospace;
-      color: #1F51FF; /* САПФИР */
-      margin-bottom: 5px;
-      font-size: 12px;
-      text-align: left;
-      min-height: 18px;
-    }
+/* Ветка */
+#branch-btn{position:fixed;bottom:30px;right:30px;z-index:1050;width:70px;height:70px;border-radius:50%;font-family:'Orbitron',sans-serif;font-size:12px;background:var(--sap);color:#000;border:none;cursor:pointer;transition:.3s;box-shadow:0 0 20px var(--sap);text-transform:uppercase}
+#branch-btn:hover{box-shadow:0 0 40px var(--sap);transform:scale(1.1)}
+#branch-menu{position:fixed;top:0;right:0;width:300px;max-width:85vw;height:100%;background:rgba(0,0,0,.95);border-left:2px solid var(--sap);z-index:1040;padding:80px 20px 20px;box-shadow:-10px 0 30px rgba(31,81,255,.5);transform:translateX(100%);visibility:hidden;transition:transform .4s ease-out,visibility .4s}
+#branch-menu.open{transform:none;visibility:visible}
+#branch-menu h3{font-family:'Orbitron',sans-serif;color:var(--sap-l);margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:10px;text-align:center}
+.branch-list{list-style:none}
+.branch-list a{display:block;padding:15px 10px;margin-bottom:10px;text-decoration:none;color:#ccc;border-left:3px solid transparent;transition:.2s;font-size:1.1rem}
+.branch-list a:hover{color:var(--sap-l);border-left-color:var(--sap);background:rgba(31,81,255,.08);padding-left:20px}
 
-    .progress-bar {
-      width: 100%;
-      height: 4px;
-      background: #111;
-      border: 1px solid #1F51FF; /* САПФИР */
-      overflow: hidden;
-    }
+[data-animate]{opacity:0;transform:translateY(30px);transition:.8s ease}
+[data-animate].visible{opacity:1;transform:none}
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #1F51FF; /* САПФИР */
-      box-shadow: 0 0 10px #1F51FF; /* САПФИР */
-    }
-    /* --- КОНЕЦ СТИЛЕЙ АНИМАЦИИ ЗАГРУЗКИ --- */
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(10, 10, 10, 0.8);
-      border-bottom: 1px solid rgba(31,81,255, 0.2); /* САПФИР RGBA */
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-    }
-
-    nav {
-      max-width: 1100px;
-      margin: auto;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* --- СТИЛИ ДЛЯ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА --- */
-    .lang-switcher {
-      display: flex;
-      gap: 5px;
-      margin-left: 20px; 
-    }
-
-    .lang-btn {
-      padding: 5px 10px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      background: transparent;
-      border: 1px solid #1F51FF; /* САПФИР */
-      color: #1F51FF; /* САПФИР */
-      cursor: pointer;
-      transition: 0.2s;
-      opacity: 0.6;
-    }
-
-    .lang-btn:hover {
-      opacity: 1;
-      box-shadow: 0 0 10px rgba(31,81,255,0.5); /* САПФИР RGBA */
-    }
-    
-    .lang-btn.active {
-      opacity: 1;
-      background: #1F51FF; /* САПФИР */
-      color: #000;
-      font-weight: bold;
-    }
-    /* ------------------------------------------------- */
-
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
-      color: #1F51FF; /* САПФИР */
-      text-shadow: 0 0 10px #1F51FF; /* САПФИР */
-      letter-spacing: 2px;
-    }
-
-    .menu {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      flex-grow: 1; 
-      justify-content: flex-end; 
-      margin-right: 30px; 
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: #ccc;
-      font-weight: 500;
-      transition: 0.3s;
-      position: relative;
-    }
-
-    .menu a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 2px;
-      background: #1F51FF; /* САПФИР */
-      box-shadow: 0 0 10px #1F51FF; /* САПФИР */
-      transition: 0.3s;
-    }
-
-    .menu a:hover {
-      color: #1F51FF; /* САПФИР */
-    }
-
-    .menu a:hover::after {
-      width: 100%;
-    }
-
-    #hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    /* --- СТИЛИ ДЛЯ КОНТРАСТНОЙ ПОДЛОЖКИ --- */
-    .hero-content-wrapper {
-        background: rgba(0, 0, 0, 0.4); 
-        padding: 50px;
-        border-radius: 15px;
-        /* Внутреннее неоновое свечение (САПФИР RGBA) */
-        box-shadow: 0 0 15px rgba(31, 81, 255, 0.3) inset, 0 0 30px rgba(31, 81, 255, 0.1); 
-        max-width: 800px;
-    }
-
-    .section-content-wrapper {
-        background: rgba(0, 0, 0, 0.4); 
-        padding: 40px;
-        border-radius: 10px;
-        /* Внутреннее неоновое свечение (САПФИР RGBA) */
-        box-shadow: 0 0 10px rgba(31, 81, 255, 0.3) inset, 0 0 20px rgba(31, 81, 255, 0.1); 
-        max-width: 900px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    /* ---------------------------------------------------- */
-
-
-    #hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      color: #00000; /* ЧЕРНОЕ СВЕЧЕНИЕ */
-      text-shadow: 0 0 20px #7AA9FF; /* СВЕТЛО-САПФИР */
-      animation: glow 3s infinite alternate;
-    }
-
-    #hero p {
-      margin-top: 20px;
-      max-width: 600px;
-      line-height: 1.6;
-      color: #aaa;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #1F51FF; } /* САПФИР */
-      to { text-shadow: 0 0 25px #1F51FF, 0 0 50px #1F51FF; } /* САПФИР */
-    }
-
-    .btn {
-      margin-top: 30px;
-      padding: 12px 30px;
-      font-family: 'Orbitron', sans-serif;
-      background: transparent;
-      border: 2px solid #1F51FF; /* САПФИР */
-      color: #1F51FF; /* САПФИР */
-      text-transform: uppercase;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 15px rgba(31,81,255,0.2); /* САПФИР RGBA */
-    }
-
-    .btn:hover {
-      background: #1F51FF; /* САПФИР */
-      color: #000;
-      box-shadow: 0 0 30px #1F51FF; /* САПФИР */
-    }
-
-    section {
-      padding: 100px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    section h2 {
-      font-family: 'Orbitron', sans-serif;
-      text-align: center;
-      font-size: 2rem;
-      color: #1F51FF; /* САПФИР */
-      margin-bottom: 40px;
-      text-shadow: 0 0 15px #1F51FF; /* САПФИР */
-    }
-
-    #about p {
-      max-width: 700px;
-      margin: auto;
-      color: #aaa;
-      line-height: 1.8;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    /* --- СТИЛИ ДЛЯ БЛОГА (ДОБАВЛЕНО) --- */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      margin-top: 20px;
-    }
-
-    .blog-card {
-      background: rgba(20, 20, 20, 0.85); 
-      border: 1px solid rgba(31,81,255, 0.3);
-      border-radius: 15px;
-      padding: 15px;
-      text-align: center;
-      transition: 0.4s;
-      box-shadow: 0 0 10px rgba(31,81,255,0.1);
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(31,81,255,0.4);
-    }
-
-    .blog-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      transition: transform 0.3s;
-      opacity: 0.9;
-      box-shadow: 0 0 5px #1F51FF;
-    }
-
-    .blog-card:hover img {
-      transform: scale(1.02);
-      opacity: 1;
-      box-shadow: 0 0 15px #1F51FF;
-    }
-
-    .blog-card p {
-        font-family: 'Orbitron', sans-serif;
-        color: #7AA9FF; /* Светлый сапфир */
-        margin-top: 10px;
-        font-size: 1.1rem;
-    }
-    
-    .blog-card a {
-        text-decoration: none;
-    }
-    /* ------------------------------------- */
-
-    .project-card {
-      /* ИЗМЕНЕНО: 85% opacity */
-      background: rgba(20, 20, 20, 0.85); 
-      border: 1px solid rgba(31,81,255, 0.3); /* САПФИР RGBA */
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      transition: 0.4s;
-      box-shadow: 0 0 10px rgba(31,81,255,0.1); /* САПФИР RGBA */
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(31,81,255,0.4); /* САПФИР RGBA */
-    }
-
-    .project-card h3 {
-      color: #1F51FF; /* САПФИР */
-      margin-bottom: 10px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .project-card p {
-      color: #0000СС;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .project-card a {
-      color: #1F51FF; /* САПФИР */
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .project-card a:hover {
-      text-shadow: 0 0 10px #7AA9FF; /* СВЕТЛО-САПФИР */
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      border-top: 1px solid rgba(31,81,255,0.2); /* САПФИР RGBA */
-      color: #555;
-      font-size: 14px;
-    }
-
-    /* Neon glow effect */
-    .neon {
-      color: #7AA9FF; /* СВЕТЛО-САПФИР */
-      text-shadow: 0 0 10px #7AA9FF, 0 0 20px #7AA9FF; /* СВЕТЛО-САПФИР */
-    }
-
-    /* Scroll reveal animation */
-    [data-animate] {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: 0.8s ease;
-    }
-
-    [data-animate].visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- МЕНЮ "ВЕТКА" (SIDEBAR) --- */
-    #branch-btn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 1050;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 12px;
-        line-height: 1.2;
-        background: #1F51FF; /* САПФИР */
-        color: #000;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 20px #1F51FF;
-        text-transform: uppercase;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    #branch-btn:hover {
-        box-shadow: 0 0 40px #1F51FF;
-        transform: scale(1.1);
-    }
-
-    #branch-menu {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 300px;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        border-left: 2px solid #1F51FF;
-        z-index: 1040;
-        padding: 20px;
-        padding-top: 80px;
-        box-shadow: -10px 0 30px rgba(31,81,255,0.5);
-        transform: translateX(100%);
-        transition: transform 0.4s ease-out;
-    }
-
-    #branch-menu.open {
-        transform: translateX(0);
-    }
-    
-    #branch-menu h3 {
-        font-family: 'Orbitron', sans-serif;
-        color: #7AA9FF;
-        margin-bottom: 30px;
-        border-bottom: 1px solid rgba(31,81,255,0.3);
-        padding-bottom: 10px;
-        text-align: center;
-    }
-
-    .branch-list {
-        list-style: none;
-    }
-
-    .branch-list li a {
-        display: block;
-        padding: 15px 10px;
-        margin-bottom: 10px;
-        text-decoration: none;
-        color: #ccc;
-        border-left: 3px solid transparent;
-        transition: 0.2s;
-        font-weight: 500;
-        font-size: 1.1rem;
-    }
-    
-    .branch-list li a:hover {
-        color: #1F51FF;
-        border-left: 3px solid #1F51FF;
-        background: rgba(31,81,255,0.05);
-        padding-left: 20px;
-        text-shadow: 0 0 5px rgba(31,81,255,0.5);
-    }
-    /* ------------------------------------- */
-  </style>
+@media(max-width:820px){
+ #burger{display:block}
+ .menu{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(0,0,0,.95);border-bottom:1px solid var(--line);display:none}
+ .menu.open{display:flex}
+ .menu a{display:block;padding:16px 24px}
+ .contact-wrap{grid-template-columns:1fr}
+ .hero-content-wrapper{padding:32px 22px}
+ .section-content-wrapper{padding:26px 18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}[data-animate]{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <div id="system-loader" class="loader-overlay">
-    <div class="loader-content">
-      <h2 class="neon-text">INITIALIZING...</h2>
-      
-      <div id="version-display" class="version-text"></div>
-      
-      <div class="terminal-text" id="term-text">System check...</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
+<div id="system-loader" class="loader-overlay" role="status">
+  <div class="loader-content">
+    <h2 class="neon-text">INITIALIZING...</h2>
+    <div id="version-display" class="version-text"></div>
+    <div class="terminal-text" id="term-text">System check...</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="skip-hint" data-i18n="skip">Нажмите, чтобы пропустить</div>
+  </div>
+</div>
+<div id="scroll-progress"></div>
+
+<header>
+  <nav>
+    <h1 class="logo">14.azv</h1>
+    <div class="lang-switcher">
+      <button id="lang-ru" class="lang-btn active" aria-label="Русский">RU</button>
+      <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
+    </div>
+    <button id="burger" aria-label="Меню" aria-expanded="false">☰</button>
+    <ul class="menu" id="menu">
+      <li><a href="#hero" data-i18n="nav_home">Главная</a></li>
+      <li><a href="#about" data-i18n="nav_about">Обо мне</a></li>
+      <li><a href="#blog" data-i18n="nav_blog">Блог</a></li>
+      <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
+      <li><a href="#contacts" data-i18n="nav_contacts">Контакты</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<section id="hero">
+  <div class="hero-content-wrapper">
+    <h1 data-i18n="hero_title">Привет, я Алан</h1>
+    <p data-i18n="hero_subtitle">Создаю современные проекты и всё, что радует глаз и душу.</p>
+    <a class="btn" href="#projects" data-i18n="btn_works">Мои работы</a>
+  </div>
+</section>
+
+<section id="about" data-animate>
+  <h2 data-i18n="about_title">Обо мне</h2>
+  <div class="section-content-wrapper">
+    <p data-i18n="about_text">Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.</p>
+    <div class="skills">
+      <div><div class="skill-top"><span data-i18n="skill1">Дизайн и Photoshop</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-level="80"></div></div></div>
+      <div><div class="skill-top"><span data-i18n="skill2">Видеомонтаж</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" data-level="75"></div></div></div>
+      <div><div class="skill-top"><span data-i18n="skill3">Программирование</span><span>55%</span></div><div class="skill-bar"><div class="skill-fill" data-level="55"></div></div></div>
     </div>
   </div>
-  
-  <header>
-    <nav>
-      <h1 class="logo">14.azv</h1>
+</section>
 
-      <div class="lang-switcher">
-        <button id="lang-ru" class="lang-btn active">RU</button>
-        <button id="lang-en" class="lang-btn">EN</button>
-      </div>
-      <ul class="menu">
-        <li><a href="#hero" data-i18n="nav_home">Главная</a></li>
-        <li><a href="#about" data-i18n="nav_about">Обо мне</a></li>
-        <li><a href="#blog" data-i18n="nav_blog">Блог</a></li> <!-- ДОБАВЛЕНО -->
-        <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
-        <li><a href="#contacts" data-i18n="nav_contacts">Контакты</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section id="hero">
-    <div class="hero-content-wrapper">
-        <h1 data-i18n="hero_title">Привет, я Алан</h1>
-        <p data-i18n="hero_subtitle">Создаю современные проекты и всё, что радует глаз и душу.</p>
-        <a href="#projects"><button class="btn" data-i18n="btn_works">Мои работы</button></a>
-    </div>
-  </section>
-
-  <section id="about" data-animate>
-    <h2 data-i18n="about_title">Обо мне</h2>
-    <div class="section-content-wrapper">
-        <p data-i18n="about_text">Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.</p>
-    </div>
-  </section>
-  
-  <!-- НОВЫЙ РАЗДЕЛ БЛОГ -->
-  <section id="blog" data-animate>
-    <h2 data-i18n="blog_title">Мой Блог</h2>
-    
-    <div class="blog-grid">
-      <!-- Статья 1 -->
-      <div class="blog-card">
-        <a href="[ССЫЛКА_1]" target="_blank" data-i18n="blog_link1">
-            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=DESIGN" alt="Статья 1">
-            <p data-i18n="blog_post1_title">5 Секретов Дизайна</p>
-        </a>
-      </div>
-      <!-- Статья 2 -->
-      <div class="blog-card">
-        <a href="[ССЫЛКА_2]" target="_blank" data-i18n="blog_link2">
-            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=CODE" alt="Статья 2">
-            <p data-i18n="blog_post2_title">Кодинг 2025</p>
-        </a>
-      </div>
-      <!-- Статья 3 -->
-      <div class="blog-card">
-        <a href="[ССЫЛКА_3]" target="_blank" data-i18n="blog_link3">
-            <img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=EDITING" alt="Статья 3">
-            <p data-i18n="blog_post3_title">Монтаж Видео</p>
-        </a>
-      </div>
-    </div>
-  </section>
-  <!-- КОНЕЦ БЛОГА -->
-
-  <section id="projects" data-animate>
-    <h2 data-i18n="projects_title">Портфолио</h2>
-    <div class="projects-grid">
-      
-      <div class="project-card">
-        <h3 data-i18n="proj_video_title">Видео-проекты</h3>
-        <p data-i18n="proj_video_text">Видео, смонтированные мною либо для себя, либо для друзей.</p>
-        
-        <a href="https://www.youtube.com/@14avz/featured" target="_blank" data-i18n="link_open">Открыть</a>
-      </div>
-
-      <div class="project-card">
-        <h3 data-i18n="proj_photo_title">Работы в фотошоп</h3>
-        <p data-i18n="proj_photo_text">Если вас интересует что я редактировал и обрабатывал в фотошопе, вам сюда.</p>
-        
-        <a href="[ВСТАВЬ_ССЫЛКУ_НА_ФОТО_СЮДА]" target="_blank" data-i18n="link_open">Открыть</a>
-      </div>
-
-      <div class="project-card">
-        <h3 data-i18n="proj_code_title">Проекты, которые я спрограммировал</h3>
-        <p data-i18n="proj_code_text">Нажав открыть на этой карточке, вы обновите страницу сайта. Я пока ничего больше этого сайта не сделал для портфолио</p>
-        
-        <a href="#" data-i18n="link_open">Открыть</a>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="contacts" data-animate>
-    <h2 data-i18n="contacts_title">Контакты</h2>
-    <p style="text-align:center;"><span data-i18n="contact_email_label">Email:</span> <a href="mailto:alan_zasseev@mail.ru" class="neon">alan_zasseev@mail.ru</a></p>
-    <p style="text-align:center;">Telegram: <a href="https://t.me/vellonchel" class="neon">@AL</a></p>
-  </section>
-
-  <footer>
-    <span data-i18n="footer_text">© 2025 Портфолио меня заканчивается здесь, а начинается в начале этого сайта.</span>
-  </footer>
-
-  <!-- КНОПКА И МЕНЮ ВЕТКИ -->
-  <button id="branch-btn" data-i18n="branch_button_closed">ВЕТКА</button>
-  <div id="branch-menu">
-      <h3 data-i18n="branch_title">МЕНЮ ВЕТКИ</h3>
-      <ul class="branch-list">
-          <li><a href="#" data-i18n="branch_link1">Архив</a></li>
-          <li><a href="#" data-i18n="branch_link2">Файлы (Beta)</a></li>
-          <li><a href="#" data-i18n="branch_link3">Настройки</a></li>
-          <li><a href="#" data-i18n="branch_link4">Логи</a></li>
-      </ul>
+<section id="blog" data-animate>
+  <h2 data-i18n="blog_title">Мой Блог</h2>
+  <div class="blog-grid">
+    <div class="blog-card"><a href="#" target="_blank" rel="noopener"><img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=DESIGN" alt="" loading="lazy"><p data-i18n="blog_post1_title">5 Секретов Дизайна</p></a></div>
+    <div class="blog-card"><a href="#" target="_blank" rel="noopener"><img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=CODE" alt="" loading="lazy"><p data-i18n="blog_post2_title">Кодинг 2025</p></a></div>
+    <div class="blog-card"><a href="#" target="_blank" rel="noopener"><img src="https://placehold.co/600x400/1F51FF/FFFFFF/png?text=EDITING" alt="" loading="lazy"><p data-i18n="blog_post3_title">Монтаж Видео</p></a></div>
   </div>
+</section>
 
-  <script>
-    /* --- СЛОВАРЬ ПЕРЕВОДОВ --- */
-    const translations = {
-      ru: {
-        nav_home: 'Главная',
-        nav_about: 'Обо мне',
-        nav_blog: 'Блог', 
-        nav_projects: 'Проекты',
-        nav_contacts: 'Контакты',
-        hero_title: 'Привет, я Алан',
-        hero_subtitle: 'Создаю современные проекты и всё, что радует глаз и душу.',
-        btn_works: 'Мои работы',
-        about_title: 'Обо мне',
-        about_text: 'Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.',
-        
-        // БЛОГ
-        blog_title: 'Мой Блог', 
-        blog_post1_title: '5 Секретов Дизайна',
-        blog_post2_title: 'Кодинг 2025',
-        blog_post3_title: 'Монтаж Видео',
-        blog_link1: '[ССЫЛКА_1]',
-        blog_link2: '[ССЫЛКА_2]',
-        blog_link3: '[ССЫЛКА_3]',
+<section id="projects" data-animate>
+  <h2 data-i18n="projects_title">Портфолио</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <h3 data-i18n="proj_video_title">Видео-проекты</h3>
+      <p data-i18n="proj_video_text">Видео, смонтированные мною либо для себя, либо для друзей.</p>
+      <a href="https://www.youtube.com/@14avz/featured" target="_blank" rel="noopener" data-i18n="link_open">Открыть</a>
+    </div>
+    <div class="project-card">
+      <h3 data-i18n="proj_photo_title">Работы в фотошоп</h3>
+      <p data-i18n="proj_photo_text">Если вас интересует что я редактировал и обрабатывал в фотошопе, вам сюда.</p>
+      <!-- Вставьте ссылку в href и удалите класс soon у span -->
+      <span class="soon" data-i18n="soon">Скоро</span>
+    </div>
+    <div class="project-card">
+      <h3 data-i18n="proj_code_title">Проекты, которые я спрограммировал</h3>
+      <p data-i18n="proj_code_text">Пока в портфолио только этот сайт — он сам и есть мой проект. Новые работы появятся здесь.</p>
+      <a href="#hero" data-i18n="link_site">Смотреть сначала</a>
+    </div>
+  </div>
+</section>
 
-        // ВЕТКА
-        branch_button_closed: 'ВЕТКА',
-        branch_button_open: 'ЗАКРЫТЬ',
-        branch_title: 'МЕНЮ ВЕТКИ',
-        branch_link1: 'Архив',
-        branch_link2: 'Файлы (Beta)',
-        branch_link3: 'Настройки',
-        branch_link4: 'Логи',
+<section id="contacts" data-animate>
+  <h2 data-i18n="contacts_title">Контакты</h2>
+  <div class="section-content-wrapper">
+    <div class="contact-wrap">
+      <div class="contact-links">
+        <div><span data-i18n="contact_email_label">Email:</span> <a class="neon" href="mailto:alan_zasseev@mail.ru">alan_zasseev@mail.ru</a></div>
+        <div>Telegram: <a class="neon" href="https://t.me/vellonchel" target="_blank" rel="noopener">@AL</a></div>
+        <div>YouTube: <a class="neon" href="https://www.youtube.com/@14avz" target="_blank" rel="noopener">@14avz</a></div>
+      </div>
+      <form id="contact-form">
+        <input id="f-name" required data-ph="ph_name" placeholder="Ваше имя" aria-label="Имя">
+        <textarea id="f-msg" required data-ph="ph_msg" placeholder="Сообщение" aria-label="Сообщение"></textarea>
+        <button class="btn" type="submit" data-i18n="send">Отправить</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
 
-        projects_title: 'Портфолио',
-        proj_video_title: 'Видео-проекты',
-        proj_video_text: 'Видео, смонтированные мною либо для себя, либо для друзей.',
-        proj_photo_title: 'Работы в фотошоп',
-        proj_photo_text: 'Если вас интересует что я редактировал и обрабатывал в фотошопе, вам сюда.',
-        proj_code_title: 'Проекты, которые я спрограммировал',
-        proj_code_text: 'Нажав открыть на этой карточке, вы обновите страницу сайта. Я пока ничего больше этого сайта не сделал для портфолио',
-        link_open: 'Открыть',
-        contacts_title: 'Контакты',
-        contact_email_label: 'Email:',
-        footer_text: '© 2025 Портфолио меня заканчивается здесь, а начинается в начале этого сайта.'
-      },
-      en: {
-        nav_home: 'Home',
-        nav_about: 'About me',
-        nav_blog: 'Blog', 
-        nav_projects: 'Projects',
-        nav_contacts: 'Contacts',
-        hero_title: 'Hello, I am Alan',
-        hero_subtitle: 'I create modern projects and everything that pleases your eye and your soul.',
-        btn_works: 'My works',
-        about_title: 'About me',
-        about_text: 'I am a designer, video editor, programmer, and just a good person :) I love creating and designing things: from photos that will be pleasant to the soul, to websites and programs that will be useful to everyone.',
-        
-        // BLOG
-        blog_title: 'My Blog', 
-        blog_post1_title: '5 Design Secrets',
-        blog_post2_title: 'Coding 2025',
-        blog_post3_title: 'Video Editing',
-        blog_link1: '[LINK_1]',
-        blog_link2: '[LINK_2]',
-        blog_link3: '[LINK_3]',
+<footer><span data-i18n="footer_text">© 2025 Портфолио меня заканчивается здесь, а начинается в начале этого сайта.</span></footer>
 
-        // BRANCH
-        branch_button_closed: 'BRANCH',
-        branch_button_open: 'CLOSE',
-        branch_title: 'BRANCH MENU',
-        branch_link1: 'Archive',
-        branch_link2: 'Files (Beta)',
-        branch_link3: 'Settings',
-        branch_link4: 'Logs',
+<button id="branch-btn" aria-controls="branch-menu" aria-expanded="false">ВЕТКА</button>
+<div id="branch-menu">
+  <h3 data-i18n="branch_title">МЕНЮ ВЕТКИ</h3>
+  <ul class="branch-list">
+    <li><a href="#" data-i18n="branch_link1">Архив</a></li>
+    <li><a href="#" data-i18n="branch_link2">Файлы (Beta)</a></li>
+    <li><a href="#" data-i18n="branch_link3">Настройки</a></li>
+    <li><a href="#" data-i18n="branch_link4">Логи</a></li>
+  </ul>
+</div>
 
-        projects_title: 'Portfolio',
-        proj_video_title: 'Video projects',
-        proj_video_text: 'Videos edited by me either for myself or for friends.',
-        proj_photo_title: 'Works in Photoshop',
-        proj_photo_text: 'If you are interested in what I edited and processed in Photoshop, go here.',
-        proj_code_title: 'Projects that I programmed',
-        proj_code_text: 'By clicking open on this card, you will refresh the site page. I haven\'t done anything else for the portfolio yet besides this site',
-        link_open: 'Open',
-        contacts_title: 'Contacts',
-        contact_email_label: 'Email:',
-        footer_text: '© 2025 My portfolio ends here and begins at the start of this site.'
-      }
-    };
+<script>
+const T={
+ru:{nav_home:'Главная',nav_about:'Обо мне',nav_blog:'Блог',nav_projects:'Проекты',nav_contacts:'Контакты',hero_title:'Привет, я Алан',hero_subtitle:'Создаю современные проекты и всё, что радует глаз и душу.',btn_works:'Мои работы',about_title:'Обо мне',about_text:'Я дизайнер, монтажер, программист, и просто добрый человек :) Я люблю создавать и проектировать вещи: от фотографий, которые будут приятны душе, до сайтов и программ, которые будут полезны всем.',skill1:'Дизайн и Photoshop',skill2:'Видеомонтаж',skill3:'Программирование',blog_title:'Мой Блог',blog_post1_title:'5 Секретов Дизайна',blog_post2_title:'Кодинг 2025',blog_post3_title:'Монтаж Видео',branch_open:'ЗАКРЫТЬ',branch_closed:'ВЕТКА',branch_title:'МЕНЮ ВЕТКИ',branch_link1:'Архив',branch_link2:'Файлы (Beta)',branch_link3:'Настройки',branch_link4:'Логи',projects_title:'Портфолио',proj_video_title:'Видео-проекты',proj_video_text:'Видео, смонтированные мною либо для себя, либо для друзей.',proj_photo_title:'Работы в фотошоп',proj_photo_text:'Если вас интересует что я редактировал и обрабатывал в фотошопе, вам сюда.',proj_code_title:'Проекты, которые я спрограммировал',proj_code_text:'Пока в портфолио только этот сайт — он сам и есть мой проект. Новые работы появятся здесь.',link_open:'Открыть',link_site:'Смотреть сначала',soon:'Скоро',contacts_title:'Контакты',contact_email_label:'Email:',send:'Отправить',ph_name:'Ваше имя',ph_msg:'Сообщение',skip:'Нажмите, чтобы пропустить',footer_text:'© 2025 Портфолио меня заканчивается здесь, а начинается в начале этого сайта.'},
+en:{nav_home:'Home',nav_about:'About me',nav_blog:'Blog',nav_projects:'Projects',nav_contacts:'Contacts',hero_title:'Hello, I am Alan',hero_subtitle:'I create modern projects and everything that pleases your eye and your soul.',btn_works:'My works',about_title:'About me',about_text:'I am a designer, video editor, programmer, and just a good person :) I love creating and designing things: from photos that will be pleasant to the soul, to websites and programs that will be useful to everyone.',skill1:'Design & Photoshop',skill2:'Video editing',skill3:'Programming',blog_title:'My Blog',blog_post1_title:'5 Design Secrets',blog_post2_title:'Coding 2025',blog_post3_title:'Video Editing',branch_open:'CLOSE',branch_closed:'BRANCH',branch_title:'BRANCH MENU',branch_link1:'Archive',branch_link2:'Files (Beta)',branch_link3:'Settings',branch_link4:'Logs',projects_title:'Portfolio',proj_video_title:'Video projects',proj_video_text:'Videos edited by me either for myself or for friends.',proj_photo_title:'Works in Photoshop',proj_photo_text:'If you are interested in what I edited and processed in Photoshop, go here.',proj_code_title:'Projects that I programmed',proj_code_text:'So far the only coded project in my portfolio is this site itself. New work will appear here.',link_open:'Open',link_site:'Back to the start',soon:'Coming soon',contacts_title:'Contacts',contact_email_label:'Email:',send:'Send',ph_name:'Your name',ph_msg:'Message',skip:'Click to skip',footer_text:'© 2025 My portfolio ends here and begins at the start of this site.'}
+};
+const $=id=>document.getElementById(id);
+const menu=$('branch-menu'),bbtn=$('branch-btn');
+let lang='ru';
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 
-    let currentLang = 'ru';
+function setLanguage(l){
+  lang=l;store('lang',l);document.documentElement.lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(e=>{const v=T[l][e.dataset.i18n];if(v)e.textContent=v});
+  document.querySelectorAll('[data-ph]').forEach(e=>e.placeholder=T[l][e.dataset.ph]);
+  $('lang-ru').classList.toggle('active',l==='ru');
+  $('lang-en').classList.toggle('active',l==='en');
+  bbtn.textContent=menu.classList.contains('open')?T[l].branch_open:T[l].branch_closed;
+}
+$('lang-ru').onclick=()=>setLanguage('ru');
+$('lang-en').onclick=()=>setLanguage('en');
+setLanguage(store('lang')==='en'?'en':'ru');
 
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-          // Если это ссылка блога, меняем href
-          if(element.tagName === 'A' && key.startsWith('blog_link')) {
-             element.href = translations[lang][key];
-          } else {
-             element.textContent = translations[lang][key];
-          }
-        }
-      });
-      
-      document.getElementById('lang-ru').classList.remove('active');
-      document.getElementById('lang-en').classList.remove('active');
-      document.getElementById(`lang-${lang}`).classList.add('active');
+/* Загрузчик: полная анимация один раз за сессию, клик пропускает */
+(function(){
+  const loader=$('system-loader'),fill=$('progress-fill'),txt=$('term-text');
+  let seen=false;try{seen=sessionStorage.getItem('seen')}catch(e){}
+  const hide=()=>{loader.classList.add('loader-hidden');try{sessionStorage.setItem('seen','1')}catch(e){}};
+  if(seen){loader.style.display='none';return}
+  $('version-display').textContent='SYSTEM UPDATE: 0.70';
+  const msgs=['Connecting...','Loading assets...','Decrypting data...','Starting UI...','Welcome.'];
+  let p=0;
+  const iv=setInterval(()=>{
+    p++;fill.style.width=Math.min(p,100)+'%';
+    txt.textContent=msgs[Math.min(Math.floor(p/20),4)];
+    if(p>=100){clearInterval(iv);setTimeout(hide,300)}
+  },25);
+  loader.addEventListener('click',()=>{clearInterval(iv);hide()});
+  setTimeout(()=>{clearInterval(iv);hide()},6000);
+})();
 
-      // Обновляем текст кнопки Ветка
-      const menu = document.getElementById('branch-menu');
-      const btn = document.getElementById('branch-btn');
-      if (menu.classList.contains('open')) {
-          btn.textContent = translations[lang].branch_button_open;
-      } else {
-          btn.textContent = translations[lang].branch_button_closed;
-      }
-    }
+/* Меню «Ветка» */
+function toggleBranch(open){
+  menu.classList.toggle('open',open);
+  bbtn.setAttribute('aria-expanded',open);
+  bbtn.textContent=open?T[lang].branch_open:T[lang].branch_closed;
+}
+bbtn.onclick=()=>toggleBranch(!menu.classList.contains('open'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){toggleBranch(false);closeBurger()}});
+document.addEventListener('click',e=>{if(!menu.contains(e.target)&&e.target!==bbtn)toggleBranch(false)});
 
-    document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
-    document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-    
-    setLanguage('ru'); 
-    /* --- КОНЕЦ СЛОВАРЯ ПЕРЕВОДОВ --- */
+/* Мобильное меню */
+const nav=$('menu'),burger=$('burger');
+function closeBurger(){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')}
+burger.onclick=()=>{const o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+nav.addEventListener('click',e=>{if(e.target.tagName==='A')closeBurger()});
 
-    /* --- СКРИПТ АНИМАЦИИ ЗАГРУЗКИ --- */
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('system-loader');
-      const fill = document.getElementById('progress-fill');
-      const text = document.getElementById('term-text');
-      const verDisplay = document.getElementById('version-display');
+/* Появление секций и полоски навыков */
+const io=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return;
+  en.target.classList.add('visible');
+  en.target.querySelectorAll('.skill-fill').forEach(f=>f.style.width=f.dataset.level+'%');
+}),{threshold:.2});
+document.querySelectorAll('[data-animate]').forEach(el=>io.observe(el));
 
-      // 1. ВЕРСИЯ САЙТА (Используется твоя версия)
-      verDisplay.innerText = "SYSTEM UPDATE: 0.60"; 
+/* Подсветка пункта меню и индикатор прокрутки */
+const links=[...nav.querySelectorAll('a')];
+const spy=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id));
+}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section').forEach(s=>spy.observe(s));
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  $('scroll-progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
 
-      const messages = [
-        "Connecting...",
-        "Loading assets...",
-        "Decrypting data...",
-        "Starting UI...",
-        "Welcome."
-      ];
-
-      let progress = 0;
-      const speed = 30; 
-
-      const interval = setInterval(() => {
-        progress += 1;
-        
-        if (progress <= 100) {
-           fill.style.width = progress + '%';
-        }
-
-        if (progress < 20) text.innerText = messages[0];
-        else if (progress < 40) text.innerText = messages[1];
-        else if (progress < 60) text.innerText = messages[2];
-        else if (progress < 80) text.innerText = messages[3];
-        else text.innerText = messages[4];
-
-        if (progress >= 100) {
-          clearInterval(interval);
-          
-          fill.style.width = '100%'; 
-          text.innerText = messages[4];
-
-          setTimeout(() => {
-            loader.classList.add('loader-hidden'); 
-          }, 300);
-        }
-      }, speed);
-    });
-    /* --- КОНЕЦ СКРИПТА ЗАГРУЗКИ --- */
-
-    /* --- СКРИПТ МЕНЮ ВЕТКИ --- */
-    document.getElementById('branch-btn').addEventListener('click', function() {
-        const menu = document.getElementById('branch-menu');
-        menu.classList.toggle('open');
-        if (menu.classList.contains('open')) {
-            this.innerText = translations[currentLang].branch_button_open;
-        } else {
-            this.innerText = translations[currentLang].branch_button_closed;
-        }
-    });
-
-    // Анимация появления при скролле
-    const elements = document.querySelectorAll('[data-animate]');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-
-    elements.forEach(el => observer.observe(el));
-  </script>
-
+/* Форма: открывает почтовую программу с готовым письмом */
+$('contact-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=$('f-name').value.trim(),m=$('f-msg').value.trim();
+  location.href='mailto:alan_zasseev@mail.ru?subject='+encodeURIComponent('Сообщение с сайта от '+n)+'&body='+encodeURIComponent(m);
+});
+</script>
 </body>
 </html>
